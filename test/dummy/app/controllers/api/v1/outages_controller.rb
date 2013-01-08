@@ -1,0 +1,2 @@
+class OutagesController < ApplicationController
+end

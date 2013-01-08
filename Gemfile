@@ -9,6 +9,7 @@ gemspec
 gem "jquery-rails"
 gem 'mongoid', '~> 3.0.6'
 gem 'haml', '3.1.7'
+gem 'sass-rails', '3.2.5'
 gem 'coffee-rails', '~> 3.2.1'
 gem 'jquery_mobile_rails', '1.2.0'
 gem 'mocha', "~> 0.12.3", :require => false
@@ -19,4 +20,4 @@ gem 'mocha', "~> 0.12.3", :require => false
 # your gem to rubygems.org.
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'

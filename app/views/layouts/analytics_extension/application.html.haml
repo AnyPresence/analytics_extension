@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title AnalyticsExtension
+    = stylesheet_link_tag    "analytics_extension/application", :media => "all"
+    %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
+    = javascript_include_tag "analytics_extension/application"
+    = csrf_meta_tags
+  %body
+    = yield
