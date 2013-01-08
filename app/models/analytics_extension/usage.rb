@@ -30,10 +30,10 @@ module AnalyticsExtension
       hour = date.to_time
       end_date = date.to_time+24.hours
       while hour < end_date
-        hour += 1.hour
         usages = with_date_and_time(hour)
         usages = usages.with_name(name) unless name.blank?
         stats[hour] = usages.count
+        hour += 1.hour
       end
       stats
     end
