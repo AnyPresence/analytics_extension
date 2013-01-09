@@ -19,5 +19,7 @@
   
   - if !@metric.blank?
     = chart_tag(start_date: @start_date, end_date: @end_date)
+  - else
+    #visualization{:style => "width: 75%; height: 300px;"}
   
 
