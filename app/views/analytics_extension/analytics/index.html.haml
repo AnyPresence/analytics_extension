@@ -2,7 +2,7 @@
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 
 %h1 Api Usage
-- if @api_versions.blank
+- if @api_versions.blank?
   %h1 No usage data to generate.
   
 .container
@@ -12,7 +12,7 @@
     - @api_versions.each do |version|
       = label_tag version
       = radio_button_tag "api_version", version.to_s
-    - if !@api_versions.blank
+    - if !@api_versions.blank?
       = label_tag "Start Date"
       = text_field_tag "start_date"
       %br
