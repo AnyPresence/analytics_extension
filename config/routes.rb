@@ -3,5 +3,5 @@ AnalyticsExtension::Engine.routes.draw do
   post 'last_metric' => 'analytics#last_metric'
   post 'regenerate' => 'analytics#regenerate'
   
-  root :to => "object_definitions#index"
+  root :to => "analytics#index"
 end
