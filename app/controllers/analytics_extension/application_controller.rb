@@ -1,5 +1,3 @@
-module AnalyticsExtension
-  class ApplicationController < ActionController::Base
-
-  end
+class AnalyticsExtension::ApplicationController < ApplicationController
+  layout "layouts/admin"
 end
