@@ -1,32 +1,42 @@
 %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
 = javascript_include_tag "analytics_extension/application"
-%script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
+= stylesheet_link_tag "analytics_extension/application"
 
-.text-info
-  %h3 Api Usage
-- if @api_versions.blank?
-  .text-info
-    %h1 No usage data to generate.
-  
-= form_tag regenerate_path, :remote => true, :'data-update-chart' => 'chart' do
-  = label_tag "API Version"
-  %br
-  - @api_versions.each do |version|
-    = label_tag version
-    = radio_button_tag "api_version", version.to_s
-  - if !@api_versions.blank?
-    = label_tag "Start Date"
-    = text_field_tag "start_date"
-    %br
-    = label_tag "End Date"
-    = text_field_tag "end_date"
-    %br
-  .form-actions
-    = submit_tag "Regenerate"
+%ul.breadcrumb
+  %li
+    = link_to 'Home', main_app.admin_root_path
+    %span.divider /
+  %li
+    = link_to 'Extensions', main_app.admin_extensions_path
+    %span.divider /
+  %li.active API Analytics
 
-- if !@metric.blank?
-  = chart_tag(start_date: @start_date, end_date: @end_date)
-- else
-  #visualization{:style => "width: 75%; height: 300px;"}
+.alert.alert-info
+  %h1 API Analytics
+  %p
+    View and manage API analytics data.
+    - if @api_versions.blank?
+      %br
+      There is no usage data at this time.
 
-
+.row-fluid
+  .span8
+    - if !@metric.blank?
+      = chart_tag(start_date: @start_date, end_date: @end_date)
+    - else
+      #visualization{:style => "width: 75%; height: 300px;"}
+  .span4
+    - if !@api_versions.blank?
+      .well
+        = form_tag regenerate_path, :remote => true, :'data-update-chart' => 'chart', class: 'form-inline' do
+          .control-group
+            = label_tag "API Version"
+            .controls= select_tag 'api_version', options_from_collection_for_select(@api_versions, 'to_s', 'to_s')
+          .control-group
+            = label_tag "Start Date"
+            .controls= text_field_tag "start_date"
+          .control-group
+            = label_tag "End Date"
+            .controls= text_field_tag "end_date"
+          .form-actions
+            = submit_tag 'Regenerate Chart', class: 'btn btn-primary'
