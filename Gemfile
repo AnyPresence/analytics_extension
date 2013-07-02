@@ -9,7 +9,7 @@ ruby '2.0.0'
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem 'mongoid', '~> 3.0.6'
+gem 'mongoid', '~> 3.1'
 gem 'haml', '3.1.7'
 gem 'sass-rails', '3.2.5'
 gem 'compass-rails', '1.0.3'
