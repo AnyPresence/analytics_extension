@@ -1,18 +1,17 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-google.load('visualization',  '1', {packages: ['annotatedtimeline']});
-google.setOnLoadCallback(
 $(function () {
   $('[data-chart]').each(function () {
       var div = $(this);
-      var api_versions = div.data('versions')
+
+      var api_versions = div.data('versions');
+      
       $.post(div.data('chart'), {mode: div.data('mode')}, function (data) {
         get_charts(data, "visualization");
       });
   });
 })
-);
 
 $(function () {
   $('#start_date').datepicker();
@@ -25,17 +24,53 @@ $(function () {
 });
 
 function get_charts(data, target_div) {
-    var table = new google.visualization.DataTable();
-    table.addColumn('date', 'Date');
-    table.addColumn('number', 'Api Hits');
-    table.addColumn('string', 'title1');
-    table.addColumn('string', 'text1');
-    $.each(data, function(time, value) {
-      var date = new Date(time);
-      // Convert to UTC
-      date = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));        
-      table.addRow([date, value, null, null]);
-    });
-    var annotatedtimeline = new google.visualization.AnnotatedTimeLine(document.getElementById(target_div));
-    annotatedtimeline.draw(table, {'displayAnnotations': true});
+  var values = new Array();
+  var startDate = null;
+
+  $.each(data, function(time, value) {
+    var date = new Date(time);
+    // Convert to UTC
+    date = new Date(date.getTime() + (date.getTimezoneOffset() * 60000));        
+    if (startDate == null) {
+      startDate = date;
+    }
+    values.push(value);
+  });
+  
+  var utc = Date.UTC(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+      startDate.getHours(),
+      startDate.getMinutes()
+  );
+
+  $(target_div).highcharts({
+    chart: {
+           zoomType: 'x',
+           spacingRight: 20
+       },
+       title: {
+           text: 'Usage'
+       },
+       xAxis: {
+           type: 'datetime',
+             maxZoom: 14 * 24 * 3600000, // fourteen days
+             title: {
+                 text: null
+             }
+       },
+       yAxis: {
+         title: {
+              text: 'Hits'
+           }
+       },
+       series: [{
+           type: 'area',
+           name: 'hits',
+           pointInterval: 24 * 3600 * 1000,
+           pointStart:  utc,
+           data: values
+       }]
+  });
 }
