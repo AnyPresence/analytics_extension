@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    analytics_extension (0.0.4)
+    analytics_extension (0.0.5)
       mongoid (~> 3.1)
       rails (~> 3.2.9)
 
