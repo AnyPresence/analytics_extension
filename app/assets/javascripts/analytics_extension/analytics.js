@@ -37,6 +37,7 @@ function get_charts(data, target_div) {
     values.push(value);
   });
   
+  // Get time since epoch for highcharts
   var utc = Date.UTC(
       startDate.getFullYear(),
       startDate.getMonth(),
@@ -45,7 +46,7 @@ function get_charts(data, target_div) {
       startDate.getMinutes()
   );
 
-  $(target_div).highcharts({
+  $("#" + target_div).highcharts({
     chart: {
            zoomType: 'x',
            spacingRight: 20
