@@ -5,13 +5,13 @@
 %ul.breadcrumb
   %li
     = link_to 'Home', main_app.admin_root_path
-    %span.divider /
+    
   %li
     = link_to 'Extensions', main_app.admin_extensions_path
-    %span.divider /
+    
   %li.active API Analytics
 
-.alert.alert-info
+.page-header
   %h1 API Analytics
   %p
     View and manage API analytics data.
@@ -19,24 +19,24 @@
       %br
       There is no usage data at this time.
 
-.row-fluid
-  .span8
+.row
+  .col-md-8
     - if !@metric.blank?
       = chart_tag(start_date: @start_date, end_date: @end_date)
     - else
       #visualization{:style => "width: 75%; height: 300px;"}
-  .span4
+  .col-md-4
     - if !@api_versions.blank?
       .well
-        = form_tag regenerate_path, :remote => true, :'data-update-chart' => 'chart', class: 'form-inline' do
-          .control-group
+        = form_tag regenerate_path, :remote => true, :'data-update-chart' => 'chart' do
+          .form-group
             = label_tag "API Version"
-            .controls= select_tag 'api_version', options_from_collection_for_select(@api_versions, 'to_s', 'to_s')
-          .control-group
+            = select_tag 'api_version', options_from_collection_for_select(@api_versions, 'to_s', 'to_s'), class: 'form-control'
+          .form-group
             = label_tag "Start Date"
-            .controls= text_field_tag "start_date"
-          .control-group
+            = text_field_tag "start_date", '', class: 'form-control'
+          .form-group
             = label_tag "End Date"
-            .controls= text_field_tag "end_date"
+            = text_field_tag "end_date", '', class: 'form-control'
           .form-actions
             = submit_tag 'Regenerate Chart', class: 'btn btn-primary'
