@@ -5,8 +5,8 @@ module AnalyticsExtension
       path = last_metric_path(params)
       mode = ""
       mode = @metric.blank? ? "" : "computed_metric"
-      content_tag(:div, :id => 'visualization', :'data-chart' => path, :'data-api-versions' => @chosen_api_versions, :'data-mode' => mode, :style => "width: 75%; height: 300px;") do
-        #image_tag('spinner.gif', :size => '24x24', :class => 'spinner')
+
+      content_tag(:canvas, :id => 'visualization', :'data-chart' => path, :'data-api-versions' => @chosen_api_versions, :'data-mode' => mode, :width => "420", :height => "300") do
       end
     end
   end
