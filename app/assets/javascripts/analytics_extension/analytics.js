@@ -1,41 +1,29 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-var MONTHS = [ "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December" ];
+var MONTHS = [ "Jan", "Feb", "Mar", "Apr", "May", "June",
+    "July", "Aug", "Sept", "Oct", "Nov", "Dec" ];
 
 $(function () {
-  var data = {
-      labels : ["January","February","March","April","May","June","July"],
-      datasets : [
-        {
-          fillColor : "rgba(151,187,205,0.5)",
-          strokeColor : "rgba(151,187,205,1)",
-          pointColor : "rgba(151,187,205,1)",
-          pointStrokeColor : "#fff",
-          data : [28,48,40,19,96,27,100]
-        }
-      ]
-    };
-
-    //alert("data is " + data);
-
     $('[data-chart]').each(function () {
       var div = $(this);
-      var api_versions = div.data('versions');
 
-      $.post(div.data('chart'), {mode: div.data('mode')}, function (data) {
+      // Gets the last metric if there's any and plot it. Nothing will be shown
+      // if there's none.
+      $.post(div.data('chart'), {mode: div.data('mode')}, function(data) {
         getCharts(data, "visualization");
       });
     })
-
-
-
 });
 
+/*
+ * Gets the labels for the x-axis for the time series line plot
+ */
 function getLabels(xAxisLabels) {
   var labels = new Array();
 
+  // Show 1/8 th of the labels. This seems to be reasonable at this time. For a large
+  // dataset, the x-axis labels overlap each other if each label is displayed.
   var skipStep = (xAxisLabels.length/8).toFixed();
 
   $.each(xAxisLabels, function(index, value) {
@@ -58,6 +46,9 @@ $(function () {
   });
 });
 
+/*
+ * Constructs the chart that needs to be plotted
+ */
 function getCharts(data, target_div) {
   var values = new Array();
   var startDate = null;
