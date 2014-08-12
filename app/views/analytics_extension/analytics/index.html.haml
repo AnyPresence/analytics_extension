@@ -20,10 +20,7 @@
 
 .row
   .col-md-8
-    - if !@metric.blank?
-      = chart_tag(start_date: @start_date, end_date: @end_date)
-    - else
-      #visualization{:style => "width: 75%; height: 300px;"}
+    = chart_tag(start_date: @start_date, end_date: @end_date)
   .col-md-4
     - if !@api_versions.blank?
       .well
