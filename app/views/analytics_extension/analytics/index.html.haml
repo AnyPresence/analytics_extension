@@ -33,9 +33,9 @@
             = select_tag 'api_version', options_from_collection_for_select(@api_versions, 'to_s', 'to_s'), class: 'form-control'
           .form-group
             = label_tag "Start Date"
-            = text_field_tag "start_date", '', class: 'form-control'
+            = text_field_tag "start_date", @start_date.strftime('%m/%d/%Y'), class: 'form-control'
           .form-group
             = label_tag "End Date"
-            = text_field_tag "end_date", '', class: 'form-control'
+            = text_field_tag "end_date", @end_date.strftime('%m/%d/%Y'), class: 'form-control'
           .form-actions
             = submit_tag 'Regenerate Chart', class: 'btn btn-primary'

@@ -28,21 +28,21 @@ module AnalyticsExtension
 
     def regenerate
       mode = params[:mode] || :per_day
-      start_date = Date.strptime(params[:start_date], '%m/%d/%Y')
-      end_date = Date.strptime(params[:end_date], '%m/%d/%Y')
+      @start_date = Date.strptime(params[:start_date], '%m/%d/%Y')
+      @end_date = Date.strptime(params[:end_date], '%m/%d/%Y')
       chosen_api_version = params[:api_version]
       options = {}
       options[:api_version] = params[:api_version] unless params[:api_version].blank?
 
-      usages = compute(mode, start_date, end_date, options)
+      usages = compute(mode, @start_date, @end_date, options)
 
       render :json => usages
     end
 
     def last_metric
       mode = params[:mode] || :per_day
-      start_date = params[:start_date]
-      end_date = params[:end_date]
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
       chosen_api_versions = params[:api_versions]
 
       usages = {}
